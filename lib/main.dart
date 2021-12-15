@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-import 'constraints.dart';
+import 'emojis.dart';
 
 void main() =>
 
@@ -23,11 +22,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool isEmojiVisible = false;
   bool isKeyboardVisible = false;
   int _selectedTab = 0;
-  late TextEditingController _textController;
+
   late StreamSubscription<bool> keyboardSubscription;
   late TabController _tabController;
   late ScrollController _scrollController;
+
   final focusNode = FocusNode();
+  late TextEditingController _textController;
+
   bool isPortrait = false;
   double width = 0, height = 0;
   @override
@@ -161,21 +163,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               margin:
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 2),
-                                              child: ImojiTabBar(
+                                              child: EmojiTabBar(
                                                   tabController:
                                                       _tabController)),
                                           const Divider(
                                               color: Colors.black45,
                                               height: 5,
                                               thickness: .5),
-                                          ImojisList(
+                                          EmojisList(
                                               cross: cross,
                                               textController: _textController,
                                               tabController: _tabController)
                                         ])
                                       : Row(children: [
                                           emojiSideBar(),
-                                          ImojisList(
+                                          EmojisList(
                                               cross: cross,
                                               textController: _textController,
                                               tabController: _tabController)
@@ -211,8 +213,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 }
 
-class ImojiTabBar extends StatelessWidget {
-  const ImojiTabBar({
+class EmojiTabBar extends StatelessWidget {
+  const EmojiTabBar({
     Key? key,
     required this.tabController,
   }) : super(key: key);
@@ -239,8 +241,8 @@ class ImojiTabBar extends StatelessWidget {
   }
 }
 
-class ImojisList extends StatelessWidget {
-  const ImojisList({
+class EmojisList extends StatelessWidget {
+  const EmojisList({
     Key? key,
     required this.cross,
     required TextEditingController textController,
